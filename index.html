@@ -33,6 +33,93 @@
     .sub-tab[data-org="symmetry"]:not(.active){color:#6366F1;background:rgba(99,102,241,.08);border-color:rgba(99,102,241,.2);}
     .sub-tab-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.8;}
 
+
+  /* ═══════════════ AUDIT MODE ═══════════════ */
+  .audit-toggle{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-size:13px;font-weight:800;font-family:inherit;cursor:pointer;border:1.5px solid var(--coral);border-radius:100px;background:var(--coral);color:#fff;white-space:nowrap;transition:all .15s;box-shadow:0 2px 9px rgba(244,93,72,.32)}
+  .audit-toggle:hover{filter:brightness(1.06);transform:translateY(-1px)}
+  .audit-toggle.on{background:var(--teal);border-color:var(--teal);color:#fff;box-shadow:0 2px 10px rgba(10,128,128,.35)}
+  .audit-toggle .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+  body.audit-on ::selection{background:rgba(244,93,72,.28)}
+  .audit-flaggable{position:relative!important}
+  body.audit-on .audit-flaggable{outline:1.5px dashed rgba(244,93,72,.30);outline-offset:3px}
+  body.audit-on .audit-flaggable:hover{outline-color:var(--coral)}
+  .audit-flag-btn{position:absolute;top:8px;right:8px;z-index:40;display:none;align-items:center;gap:4px;padding:4px 9px;font-size:11px;font-weight:800;font-family:'Nunito',sans-serif;cursor:pointer;border:none;border-radius:100px;background:var(--coral);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:.92}
+  body.audit-on .audit-flag-btn{display:inline-flex}
+  .audit-flag-btn:hover{opacity:1;transform:translateY(-1px)}
+  .audit-flag-btn.has{background:#B91C1C}
+  /* fixed roots counter the body zoom:0.8 so they render at true 1:1 */
+  .audit-bar,.audit-ov,.audit-drawer{zoom:1.25}
+  .audit-bar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9000;display:none;align-items:center;gap:11px;padding:9px 12px 9px 16px;background:#1B1E1E;color:#fff;border-radius:100px;box-shadow:0 12px 34px rgba(0,0,0,.34);font-family:'Nunito',sans-serif;max-width:calc(100vw - 40px)}
+  body.audit-on .audit-bar{display:flex}
+  .audit-bar .ab-name{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:100px;padding:6px 12px;font-size:12.5px;font-family:inherit;outline:none;width:120px}
+  .audit-bar .ab-name::placeholder{color:rgba(255,255,255,.5)}
+  .audit-bar button{border:none;font-family:inherit;cursor:pointer;border-radius:100px;font-weight:700}
+  .ab-sel{background:rgba(255,255,255,.14);color:#fff;padding:7px 13px;font-size:12.5px}
+  .ab-sel:disabled{opacity:.4;cursor:default}
+  .ab-sel.live{background:var(--coral)}
+  .ab-fb{background:rgba(255,255,255,.14);color:#fff;padding:7px 13px;font-size:12.5px;position:relative}
+  .ab-fb .cnt{position:absolute;top:-6px;right:-6px;background:var(--coral);color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:100px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+  .ab-submit{background:#22C55E;color:#04310f;padding:7px 15px;font-size:12.5px}
+  .ab-submit:disabled{opacity:.4;cursor:default}
+  .ab-exit{background:transparent;color:rgba(255,255,255,.6);font-size:16px;padding:4px 8px;line-height:1}
+  .ab-exit:hover{color:#fff}
+  .audit-bar .sep{width:1px;height:22px;background:rgba(255,255,255,.16)}
+  .audit-ov{position:fixed;inset:0;background:rgba(20,22,22,.5);z-index:9500;display:none;align-items:center;justify-content:center;padding:20px}
+  .audit-ov.show{display:flex}
+  .audit-modal{background:#fff;border-radius:20px;width:100%;max-width:460px;max-height:88vh;overflow:auto;box-shadow:0 24px 70px rgba(0,0,0,.32);font-family:'Nunito',sans-serif}
+  .am-head{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 22px 6px}
+  .am-title{font-size:19px;font-weight:900;font-family:'Song Myung',serif;color:var(--ink);letter-spacing:-.4px}
+  .am-loc{font-size:12px;color:var(--ink-60);margin-top:3px;line-height:1.4}
+  .am-close{background:none;border:none;font-size:20px;color:var(--ink-60);cursor:pointer;line-height:1}
+  .am-body{padding:8px 22px 4px}
+  .am-lbl{display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--teal);margin:14px 0 6px}
+  .am-in{width:100%;box-sizing:border-box;padding:10px 12px;border:1.5px solid var(--ink-20);border-radius:10px;font-size:13.5px;font-family:inherit;color:var(--ink);outline:none;background:#fff}
+  .am-in:focus{border-color:var(--coral)}
+  textarea.am-in{resize:vertical;min-height:74px;line-height:1.5}
+  .am-hl{background:#FFF7E6;border:1px solid #FCD97B;border-radius:10px;padding:9px 11px;font-size:12.5px;color:#7A5A00;font-style:italic;max-height:90px;overflow:auto}
+  .am-cats{display:flex;flex-wrap:wrap;gap:7px}
+  .am-cat{padding:7px 12px;border:1.5px solid var(--ink-20);border-radius:100px;font-size:12.5px;font-weight:700;cursor:pointer;background:#fff;color:var(--ink-60);font-family:inherit}
+  .am-cat.sel{border-color:currentColor}
+  .am-cat[data-k="wrong"].sel{color:#B91C1C;background:#FEECEC}
+  .am-cat[data-k="missing"].sel{color:#B45309;background:#FEF3E2}
+  .am-cat[data-k="context"].sel{color:#A16207;background:#FEFCE8}
+  .am-cat[data-k="ok"].sel{color:#0A7A3B;background:#E9FBEF}
+  .am-cat[data-k="other"].sel{color:#4338CA;background:#EEF0FE}
+  .am-foot{display:flex;gap:10px;padding:16px 22px 22px;align-items:center}
+  .am-save{flex:1;background:var(--coral);color:#fff;border:none;padding:12px;border-radius:100px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit}
+  .am-cancel{background:transparent;border:1.5px solid var(--ink-20);color:var(--ink);padding:12px 18px;border-radius:100px;font-size:14px;cursor:pointer;font-family:inherit}
+  .audit-drawer{position:fixed;top:0;right:0;height:100%;width:400px;max-width:92vw;background:#F8F5F2;z-index:9600;box-shadow:-14px 0 44px rgba(0,0,0,.22);transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;font-family:'Nunito',sans-serif}
+  .audit-drawer.open{transform:translateX(0)}
+  .ad-head{padding:20px 20px 14px;border-bottom:1px solid var(--ink-20);background:#fff;position:relative}
+  .ad-head h3{font-size:19px;font-weight:900;font-family:'Song Myung',serif;color:var(--ink);margin:0;letter-spacing:-.4px}
+  .ad-head p{font-size:12px;color:var(--ink-60);margin:4px 0 0}
+  .ad-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:22px;color:var(--ink-60);cursor:pointer}
+  .ad-list{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+  .ad-empty{text-align:center;color:var(--ink-60);font-size:13px;padding:40px 20px;line-height:1.6}
+  .ad-flag{background:#fff;border:1px solid var(--ink-20);border-radius:14px;padding:13px 14px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+  .ad-flag.fromsheet{background:#FBFAF8;border-style:dashed}
+  .ad-flag .r1{display:flex;align-items:center;gap:7px;margin-bottom:5px;flex-wrap:wrap}
+  .ad-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:2px 8px;border-radius:100px}
+  .ad-tag.wrong{background:#FEECEC;color:#B91C1C}.ad-tag.missing{background:#FEF3E2;color:#B45309}.ad-tag.context{background:#FEFCE8;color:#A16207}.ad-tag.ok{background:#E9FBEF;color:#0A7A3B}.ad-tag.other{background:#EEF0FE;color:#4338CA}
+  .ad-loc{font-size:12px;font-weight:700;color:var(--ink)}
+  .ad-org{font-size:10.5px;color:var(--ink-60);font-weight:700}
+  .ad-note{font-size:12.5px;color:var(--ink);line-height:1.5;margin-top:4px;white-space:pre-wrap;word-break:break-word}
+  .ad-sug{font-size:12px;color:#0A7A3B;margin-top:5px;word-break:break-word}
+  .ad-hl{font-size:11.5px;color:#7A5A00;font-style:italic;background:#FFF7E6;border-radius:7px;padding:5px 8px;margin-top:6px;word-break:break-word}
+  .ad-meta{font-size:11px;color:var(--ink-60);margin-top:7px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .ad-badge{font-size:10px;font-weight:800;padding:2px 7px;border-radius:100px}
+  .ad-badge.unsent{background:#FEF3E2;color:#B45309}.ad-badge.sent{background:#E9FBEF;color:#0A7A3B}
+  .ad-x{background:none;border:none;color:var(--ink-60);cursor:pointer;font-size:12px;text-decoration:underline;padding:0}
+  .ad-foot{padding:14px 16px;border-top:1px solid var(--ink-20);background:#fff;display:flex;flex-direction:column;gap:8px}
+  .ad-foot .row{display:flex;gap:8px}
+  .ad-btn{flex:1;padding:11px;border-radius:100px;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;border:none}
+  .ad-btn.primary{background:#22C55E;color:#04310f}
+  .ad-btn.primary:disabled{opacity:.45;cursor:default}
+  .ad-btn.ghost{background:#fff;border:1.5px solid var(--ink-20);color:var(--ink);font-weight:700}
+  .ad-note-cfg{font-size:11px;color:var(--ink-60);text-align:center;line-height:1.45}
+  .ad-note-cfg b{color:var(--coral)}
+  @media(max-width:560px){.audit-bar{gap:8px;padding:8px 10px}.audit-bar .ab-name{width:88px}.ab-sel,.ab-submit,.ab-fb{padding:7px 10px;font-size:11.5px}}
+
   </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
 <style>/* ── Gusto Brand Fonts ── */
@@ -552,6 +639,7 @@
       <button class="period-btn active" onclick="setPeriod('quarterly',this)">Quarterly</button>
       <button class="period-btn" onclick="setPeriod('monthly',this)">Monthly</button>
     </div>
+    <button class="audit-toggle" id="auditToggle" type="button" onclick="AUDIT.toggle()" title="Audit Mode — let reviewers flag data for verification"><span class="dot"></span> Audit Mode</button>
     <span class="as-of">Updated <strong>Jun 18, 2026</strong> &nbsp;·&nbsp; <span id="as-of-label">Q1 FY27 (May–Jul) · QTD Jun 18</span></span>
   </div>
 </header>
@@ -2365,5 +2453,372 @@ function _submitPlan() {
 // All consts (INVITE_PE_EMAILS, GAS_IDENTITY_URL) are now in scope — safe to call
 checkPEAccess();
 </script>
+
+<!-- ═══════════════ AUDIT MODE UI ═══════════════ -->
+<div class="audit-bar" id="auditBar" aria-live="polite">
+  <input class="ab-name" id="abName" placeholder="Your name" autocomplete="name" />
+  <span class="sep"></span>
+  <button class="ab-sel" id="abSel" type="button" disabled onclick="AUDIT.flagSelection()">⚑ Flag selected text</button>
+  <button class="ab-fb" id="abFb" type="button" onclick="AUDIT.openDrawer()">Feedback<span class="cnt" id="abCnt">0</span></button>
+  <button class="ab-submit" id="abSubmit" type="button" onclick="AUDIT.submitAll()">Submit all</button>
+  <span class="sep"></span>
+  <button class="ab-exit" id="abExit" type="button" onclick="AUDIT.toggle()" title="Exit audit mode">✕</button>
+</div>
+
+<div class="audit-ov" id="auditOv">
+  <div class="audit-modal" role="dialog" aria-modal="true">
+    <div class="am-head">
+      <div><div class="am-title">Flag this data</div><div class="am-loc" id="amLoc"></div></div>
+      <button class="am-close" type="button" onclick="AUDIT.closeModal()">✕</button>
+    </div>
+    <div class="am-body">
+      <div id="amHlWrap" style="display:none"><label class="am-lbl">Highlighted content</label><div class="am-hl" id="amHl"></div></div>
+      <label class="am-lbl">What's the issue?</label>
+      <div class="am-cats" id="amCats"></div>
+      <label class="am-lbl">Note</label>
+      <textarea class="am-in" id="amNote" placeholder="Explain what looks off, or add context…"></textarea>
+      <label class="am-lbl">Suggested correct value <span style="color:var(--ink-60);font-weight:600;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input class="am-in" id="amSug" placeholder="e.g. should be 68%, not 56%" />
+      <label class="am-lbl">Your name</label>
+      <input class="am-in" id="amName" placeholder="Reviewer name" autocomplete="name" />
+    </div>
+    <div class="am-foot">
+      <button class="am-cancel" type="button" onclick="AUDIT.closeModal()">Cancel</button>
+      <button class="am-save" type="button" onclick="AUDIT.save()">Add flag</button>
+    </div>
+  </div>
+</div>
+
+<div class="audit-drawer" id="auditDrawer">
+  <div class="ad-head">
+    <button class="ad-close" type="button" onclick="AUDIT.closeDrawer()">✕</button>
+    <h3>Audit feedback</h3>
+    <p id="adSub">Flags you've added this session</p>
+  </div>
+  <div class="ad-list" id="adList"></div>
+  <div class="ad-foot" id="adFoot"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   AUDIT MODE — self-contained. Works on Netlify (plain browser)
+   and inside Cowork. Flags land in the "Audit Log" tab of the
+   hiring Google Sheet via an Apps Script endpoint (Netlify) or the
+   MCP connector (Cowork). Local backup + export always available.
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  const CFG = {
+    ENDPOINT: 'https://script.google.com/a/macros/gusto.com/s/AKfycbzxC_XvuvaknOqaoxHzJ_3uSet1AozBrGBnSt34f1vi7kDCNrDYOsHfVnGMBF5HC-E/exec',
+    SHEET_ID: '1rv6HDEAH5s13rxVNC0F20TUVuLv7EIHMVWKOkap0CS4',
+    APPEND:  'mcp__c61042c2-2fb3-4e2e-888c-dce52a6a8c86__append',
+    FETCH:   'mcp__c61042c2-2fb3-4e2e-888c-dce52a6a8c86__fetch',
+    TAB: 'Audit Log',
+    LSK: 'gustoAuditFlags_v1',
+    LSN: 'gustoAuditReviewer_v1'
+  };
+  const CATS = [
+    {k:'wrong',   label:'🔴 Wrong number'},
+    {k:'missing', label:'🟠 Missing data'},
+    {k:'context', label:'🟡 Needs context'},
+    {k:'ok',      label:'🟢 Looks correct'},
+    {k:'other',   label:'💬 Other'}
+  ];
+  const catLabel = k => (CATS.find(c=>c.k===k)||{}).label || k;
+
+  let on=false, flags=[], sel='', modalCat='', mo=null, moT=null;
+  const $ = id => document.getElementById(id);
+  const hasCowork = () => !!(window.cowork && window.cowork.callMcpTool);
+
+  /* ---------- persistence ---------- */
+  function load(){ try{ flags = JSON.parse(localStorage.getItem(CFG.LSK)||'[]'); }catch(e){ flags=[]; } }
+  function persist(){ try{ localStorage.setItem(CFG.LSK, JSON.stringify(flags)); }catch(e){} }
+  function getName(){ try{ return localStorage.getItem(CFG.LSN)||''; }catch(e){ return ''; } }
+  function setName(v){ try{ localStorage.setItem(CFG.LSN, v||''); }catch(e){} }
+
+  function toast(msg, err){
+    if (typeof window.showToast === 'function'){ window.showToast(msg, !!err); return; }
+    let t = $('auditToastFallback');
+    if(!t){ t=document.createElement('div'); t.id='auditToastFallback';
+      t.style.cssText='position:fixed;left:50%;bottom:74px;transform:translateX(-50%);z-index:9999;background:#1B1E1E;color:#fff;padding:11px 18px;border-radius:100px;font-family:Nunito,sans-serif;font-size:13px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.3);zoom:1.25';
+      document.body.appendChild(t); }
+    t.textContent=msg; t.style.opacity='1';
+    clearTimeout(t._tm); t._tm=setTimeout(()=>{ t.style.transition='opacity .4s'; t.style.opacity='0'; }, 3200);
+  }
+
+  /* ---------- context helpers ---------- */
+  function currentOrg(){
+    let label='All Orgs';
+    const t=document.querySelector('.tab.active');
+    if(t) label=t.textContent.replace(/[0-9]+/g,'').replace(/\+/g,'').replace(/\s+/g,' ').trim();
+    document.querySelectorAll('.sub-tab-bar').forEach(bar=>{
+      if(bar.offsetParent!==null){ const s=bar.querySelector('.sub-tab.active'); if(s) label += ' / '+s.textContent.replace(/\s+/g,' ').trim(); }
+    });
+    return label || 'All Orgs';
+  }
+  function sectionOf(el){
+    if(!el) return 'General';
+    const card=el.closest('.card');
+    if(card){ const t=card.querySelector('.card-title'); if(t) return t.textContent.replace(/\s+/g,' ').trim().slice(0,90); }
+    const kpi=el.closest('.kpi');
+    if(kpi){ const l=kpi.querySelector('.kpi-label'), v=kpi.querySelector('.kpi-value');
+      return ((l?l.textContent.trim():'KPI')+(v?': '+v.textContent.replace(/\s+/g,' ').trim():'')).slice(0,90); }
+    const ins=el.closest('.insight-chip');
+    if(ins){ const l=ins.querySelector('.insight-label'); return 'Insight — '+(l?l.textContent.trim():'').slice(0,70); }
+    if(el.closest('.org-banner')) return 'Org banner';
+    if(el.closest('.all-hero')) return 'Hero summary';
+    return 'General';
+  }
+
+  /* ---------- flag affordances (survive re-renders) ---------- */
+  const SELS = 'main .card, main .kpi, main .insight-chip, .org-banner, .all-hero';
+  function mark(){
+    if(!on) return;
+    if(mo) mo.disconnect();
+    document.querySelectorAll(SELS).forEach(el=>{
+      if(!el.classList.contains('audit-flaggable')){
+        el.classList.add('audit-flaggable');
+        const b=document.createElement('button');
+        b.className='audit-flag-btn'; b.type='button';
+        b.addEventListener('click', ev=>{ ev.stopPropagation(); ev.preventDefault(); openModal({el}); });
+        el.appendChild(b);
+      }
+      const b=el.querySelector(':scope > .audit-flag-btn');
+      if(b){ const n=flags.filter(f=>f.section===sectionOf(el)&&f.org===currentOrg()).length;
+        b.classList.toggle('has', n>0);
+        b.textContent = n>0 ? ('⚑ '+n) : '⚑ Flag'; }
+    });
+    if(on && mo){ const m=document.querySelector('main'); if(m) mo.observe(m,{childList:true,subtree:true}); }
+  }
+  function unmark(){
+    document.querySelectorAll('.audit-flaggable').forEach(el=>{
+      el.classList.remove('audit-flaggable');
+      const b=el.querySelector(':scope > .audit-flag-btn'); if(b) b.remove();
+    });
+  }
+
+  /* ---------- selection ---------- */
+  function withinMain(s){
+    if(!s || !s.anchorNode) return false;
+    let n=s.anchorNode.nodeType===3 ? s.anchorNode.parentElement : s.anchorNode;
+    if(!n) return false;
+    if(n.closest('.audit-drawer,.audit-ov,.audit-bar')) return false;
+    return !!n.closest('main');
+  }
+  document.addEventListener('selectionchange', ()=>{
+    if(!on) return;
+    const s=window.getSelection(); const txt=s?s.toString().trim():'';
+    sel = (txt && withinMain(s)) ? txt : '';
+    const btn=$('abSel'); if(btn){ btn.disabled=!sel; btn.classList.toggle('live', !!sel); }
+  });
+
+  /* ---------- modal ---------- */
+  function renderCats(){
+    $('amCats').innerHTML = CATS.map(c=>'<button type="button" class="am-cat" data-k="'+c.k+'">'+c.label+'</button>').join('');
+    $('amCats').querySelectorAll('.am-cat').forEach(b=>{
+      b.onclick=()=>{ modalCat=b.dataset.k;
+        $('amCats').querySelectorAll('.am-cat').forEach(x=>x.classList.toggle('sel', x===b)); };
+    });
+  }
+  function openModal(opts){
+    opts=opts||{}; modalCat='';
+    const el=opts.el||null;
+    const hl=opts.highlighted||'';
+    const org=currentOrg();
+    const section = el ? sectionOf(el) : (hl ? sectionOf(anchorEl()) : 'General');
+    $('auditOv').dataset.org=org;
+    $('auditOv').dataset.section=section;
+    $('amLoc').textContent = org + '  ·  ' + section;
+    renderCats();
+    $('amNote').value=''; $('amSug').value='';
+    $('amName').value = getName();
+    if(hl){ $('amHlWrap').style.display=''; $('amHl').textContent = hl.length>600?hl.slice(0,600)+'…':hl; $('auditOv').dataset.hl=hl; }
+    else  { $('amHlWrap').style.display='none'; $('auditOv').dataset.hl=''; }
+    $('auditOv').classList.add('show');
+    setTimeout(()=>$('amNote').focus(), 60);
+  }
+  function anchorEl(){ const s=window.getSelection(); if(s&&s.anchorNode) return s.anchorNode.nodeType===3?s.anchorNode.parentElement:s.anchorNode; return null; }
+  function closeModal(){ $('auditOv').classList.remove('show'); }
+
+  function save(){
+    const ov=$('auditOv');
+    const note=$('amNote').value.trim();
+    const sug=$('amSug').value.trim();
+    const name=$('amName').value.trim();
+    if(!modalCat && !note){ toast('Pick a category or add a note', true); return; }
+    setName(name);
+    const f={
+      id:'f'+Date.now()+Math.random().toString(36).slice(2,6),
+      ts:new Date().toISOString(),
+      reviewer:name||'(anonymous)',
+      org:ov.dataset.org||currentOrg(),
+      section:ov.dataset.section||'General',
+      catKey:modalCat||'other',
+      catLabel:catLabel(modalCat||'other'),
+      note:note, suggested:sug, highlighted:ov.dataset.hl||'',
+      sent:false,
+      source: CFG.ENDPOINT ? 'netlify' : (hasCowork()?'cowork':'local')
+    };
+    flags.unshift(f); persist(); closeModal(); mark(); refreshBar();
+    toast('Flag added — open Feedback to submit');
+  }
+
+  /* ---------- drawer ---------- */
+  function openDrawer(){ renderDrawer(); $('auditDrawer').classList.add('open'); }
+  function closeDrawer(){ $('auditDrawer').classList.remove('open'); }
+  function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+  function fmtTime(iso){ try{ return new Date(iso).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }catch(e){ return iso; } }
+
+  function renderDrawer(){
+    const list=$('adList'); const mine=flags;
+    const unsent=mine.filter(f=>!f.sent).length;
+    $('adSub').textContent = mine.length ? (mine.length+' flag'+(mine.length>1?'s':'')+' · '+unsent+' not yet submitted') : "Flags you've added this session";
+    if(!mine.length){
+      list.innerHTML='<div class="ad-empty">No flags yet.<br>Turn on Audit Mode, then click <b>⚑ Flag</b> on any card or highlight text and use <b>⚑ Flag selected text</b>.</div>';
+    } else {
+      list.innerHTML = mine.map(f=>`
+        <div class="ad-flag${f.fromsheet?' fromsheet':''}">
+          <div class="r1">
+            <span class="ad-tag ${f.catKey}">${esc((f.catLabel||'').replace(/^\S+\s/,''))||f.catKey}</span>
+            <span class="ad-loc">${esc(f.section)}</span>
+          </div>
+          <div class="ad-org">${esc(f.org)}</div>
+          ${f.note?`<div class="ad-note">${esc(f.note)}</div>`:''}
+          ${f.suggested?`<div class="ad-sug">✔ Suggested: ${esc(f.suggested)}</div>`:''}
+          ${f.highlighted?`<div class="ad-hl">“${esc(f.highlighted.slice(0,240))}${f.highlighted.length>240?'…':''}”</div>`:''}
+          <div class="ad-meta">
+            <span>${esc(f.reviewer)} · ${fmtTime(f.ts)}</span>
+            ${f.fromsheet?'<span class="ad-badge sent">submitted</span>':
+              `<span style="display:flex;gap:8px;align-items:center">
+                 <span class="ad-badge ${f.sent?'sent':'unsent'}">${f.sent?'submitted':'not sent'}</span>
+                 <button class="ad-x" onclick="AUDIT.remove('${f.id}')">remove</button>
+               </span>`}
+          </div>
+        </div>`).join('');
+    }
+    const cfgNote = (!CFG.ENDPOINT && !hasCowork())
+      ? '<div class="ad-note-cfg">Live submission isn\'t configured yet. Use <b>Export</b> / <b>Copy</b> and send to Jaime, or ask Jaime to add the endpoint.</div>' : '';
+    $('adFoot').innerHTML = `
+      <button class="ad-btn primary" id="adSubmit" onclick="AUDIT.submitAll()" ${unsent?'':'disabled'}>Submit ${unsent||''} flag${unsent===1?'':'s'}</button>
+      <div class="row">
+        <button class="ad-btn ghost" onclick="AUDIT.exportJson()">⬇ Export</button>
+        <button class="ad-btn ghost" onclick="AUDIT.copySummary()">⧉ Copy</button>
+      </div>
+      ${hasCowork()?'<button class="ad-btn ghost" onclick="AUDIT.loadFromSheet()">⟳ Load all submitted (from Sheet)</button>':''}
+      ${cfgNote}`;
+  }
+  function remove(id){ flags=flags.filter(f=>f.id!==id); persist(); renderDrawer(); mark(); refreshBar(); }
+
+  /* ---------- submission ---------- */
+  function rowOf(f){ return [f.ts, f.reviewer, f.org, f.section, f.catLabel, f.note, f.suggested, f.highlighted, '', f.source]; }
+  async function sendOne(f){
+    if(CFG.ENDPOINT){
+      await fetch(CFG.ENDPOINT, {method:'POST', mode:'no-cors', credentials:'include', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(f)});
+      return true;            /* opaque response — optimistic (local copy kept) */
+    }
+    if(hasCowork()){
+      await window.cowork.callMcpTool(CFG.APPEND, {spreadsheet_id:CFG.SHEET_ID, range:CFG.TAB+"!A1", values:[rowOf(f)]});
+      return true;
+    }
+    throw new Error('no-backend');
+  }
+  async function submitAll(){
+    const pend=flags.filter(f=>!f.sent && !f.fromsheet);
+    if(!pend.length){ toast('Nothing new to submit'); return; }
+    let okc=0, err=0;
+    for(const f of pend){
+      try{ await sendOne(f); f.sent=true; okc++; }
+      catch(e){ err++; }
+    }
+    persist(); renderDrawer(); mark(); refreshBar();
+    if(err && !okc) toast('Could not submit — Export/Copy instead', true);
+    else if(err) toast(okc+' submitted, '+err+' failed — try again', true);
+    else toast('✓ '+okc+' flag'+(okc>1?'s':'')+' submitted to the Audit Log');
+  }
+
+  /* ---------- export / copy ---------- */
+  function exportJson(){
+    try{
+      const blob=new Blob([JSON.stringify(flags.filter(f=>!f.fromsheet),null,2)],{type:'application/json'});
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+      a.download='dashboard-audit-'+(getName()||'flags').replace(/\s+/g,'-').toLowerCase()+'.json';
+      document.body.appendChild(a); a.click(); a.remove(); toast('Exported JSON');
+    }catch(e){ toast('Export failed', true); }
+  }
+  function copySummary(){
+    const mine=flags.filter(f=>!f.fromsheet);
+    const txt = 'Gusto Hiring Dashboard — audit flags ('+(getName()||'reviewer')+')\n\n' + mine.map((f,i)=>
+      (i+1)+'. ['+f.catLabel+'] '+f.org+' — '+f.section+'\n'+
+      (f.note?'   Note: '+f.note+'\n':'')+
+      (f.suggested?'   Suggested: '+f.suggested+'\n':'')+
+      (f.highlighted?'   Highlighted: "'+f.highlighted.slice(0,160)+'"\n':'')
+    ).join('\n');
+    const done=()=>toast('Copied to clipboard');
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt,done)); }
+    else fallbackCopy(txt,done);
+  }
+  function fallbackCopy(txt,done){
+    try{ const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); }
+    catch(e){ toast('Copy not available', true); }
+  }
+
+  /* ---------- cowork: load everything already in the sheet ---------- */
+  async function loadFromSheet(){
+    if(!hasCowork()){ toast('Only available inside Cowork', true); return; }
+    toast('Loading submitted flags…');
+    try{
+      const r=await window.cowork.callMcpTool(CFG.FETCH, {spreadsheet_id:CFG.SHEET_ID, sheet_name:CFG.TAB});
+      let text=''; try{ text=r.structuredContent&&r.structuredContent.content ? r.structuredContent.content : JSON.parse(r.content[0].text).content; }catch(e){ text=''; }
+      const rows=text.split(/\r?\n/).filter(x=>x.length);
+      let added=0;
+      rows.slice(1).forEach(line=>{
+        const c=line.split('\t');
+        if(!c.length||(!c[3]&&!c[5])) return;
+        const id='sheet-'+(c[0]||'')+'-'+(c[1]||'')+'-'+(c[3]||'').slice(0,12);
+        if(flags.some(f=>f.id===id)) return;
+        const kmap={'🔴':'wrong','🟠':'missing','🟡':'context','🟢':'ok','💬':'other'};
+        const ck=kmap[(c[4]||'').trim().charAt(0)]||'other';
+        flags.push({id, ts:c[0]||'', reviewer:c[1]||'', org:c[2]||'', section:c[3]||'', catKey:ck, catLabel:c[4]||'Other', note:c[5]||'', suggested:c[6]||'', highlighted:c[7]||'', sent:true, fromsheet:true, source:c[9]||'sheet'});
+        added++;
+      });
+      persist(); renderDrawer();
+      toast(added?('Loaded '+added+' submitted flag'+(added>1?'s':'')):'No new submitted flags');
+    }catch(e){ toast('Could not read the sheet', true); }
+  }
+
+  /* ---------- bar / toggle ---------- */
+  function refreshBar(){
+    const c=$('abCnt'); if(c) c.textContent=flags.filter(f=>!f.fromsheet).length;
+    const s=$('abSubmit'); if(s) s.disabled = !flags.some(f=>!f.sent && !f.fromsheet);
+  }
+  function toggle(){
+    on=!on;
+    document.body.classList.toggle('audit-on', on);
+    const t=$('auditToggle'); if(t){ t.classList.toggle('on', on); t.innerHTML='<span class="dot"></span> '+(on?'Auditing…':'Audit Mode'); }
+    if(on){
+      if(!mo) mo=new MutationObserver(()=>{ if(on){ clearTimeout(moT); moT=setTimeout(mark,120);} });
+      mark(); refreshBar();
+      const nm=$('abName'); if(nm){ nm.value=getName(); }
+      toast('Audit Mode on — click ⚑ Flag on any card, or highlight text');
+      if(!getName() && nm) setTimeout(()=>nm.focus(),200);
+    } else {
+      if(mo) mo.disconnect();
+      unmark(); closeModal(); closeDrawer();
+    }
+  }
+
+  /* ---------- init ---------- */
+  function init(){
+    load();
+    const nm=$('abName'); if(nm){ nm.value=getName(); nm.addEventListener('input',()=>setName(nm.value.trim())); }
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ if($('auditOv').classList.contains('show')) closeModal(); else if($('auditDrawer').classList.contains('open')) closeDrawer(); } });
+    refreshBar();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+
+  window.AUDIT={ toggle, openDrawer, closeDrawer, closeModal, save, remove, submitAll, exportJson, copySummary, loadFromSheet,
+    flagSelection:()=>{ if(!sel){ toast('Select some text first', true); return; } openModal({highlighted:sel}); } };
+})();
+</script>
+
 </body>
 </html>
