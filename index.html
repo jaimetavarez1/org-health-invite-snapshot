@@ -119,6 +119,15 @@
   .ad-note-cfg{font-size:11px;color:var(--ink-60);text-align:center;line-height:1.45}
   .ad-note-cfg b{color:var(--coral)}
   @media(max-width:560px){.audit-bar{gap:8px;padding:8px 10px}.audit-bar .ab-name{width:88px}.ab-sel,.ab-submit,.ab-fb{padding:7px 10px;font-size:11.5px}}
+  .ab-help{background:rgba(255,255,255,.14);color:#fff;width:30px;height:30px;font-size:14px;font-weight:800;border-radius:50%;padding:0;line-height:1}
+  .audit-help-intro{font-size:13.5px;color:var(--ink);line-height:1.55;margin:2px 0 6px}
+  .audit-help-list{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:11px}
+  .audit-help-list li{font-size:13px;line-height:1.5;color:var(--ink);display:flex;gap:9px;align-items:flex-start}
+  .audit-help-list .hi{flex-shrink:0;font-size:15px;line-height:1.3}
+  .audit-help-list b{color:var(--ink);font-weight:800}
+  .audit-help-tip{font-size:12px;color:#0A5F5F;background:#EAF7F6;border:1px solid #CDEBE9;border-radius:10px;padding:9px 11px;margin-top:15px;line-height:1.5}
+  .audit-help-dsa{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-60);margin-top:15px;cursor:pointer;user-select:none}
+  .audit-help-dsa input{width:15px;height:15px;accent-color:var(--coral);cursor:pointer}
 
   </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
@@ -2462,6 +2471,7 @@ checkPEAccess();
   <button class="ab-fb" id="abFb" type="button" onclick="AUDIT.openDrawer()">Feedback<span class="cnt" id="abCnt">0</span></button>
   <button class="ab-submit" id="abSubmit" type="button" onclick="AUDIT.submitAll()">Submit all</button>
   <span class="sep"></span>
+  <button class="ab-help" id="abHelp" type="button" onclick="AUDIT.openHelp()" title="What can I do in Audit Mode?">?</button>
   <button class="ab-exit" id="abExit" type="button" onclick="AUDIT.toggle()" title="Exit audit mode">✕</button>
 </div>
 
@@ -2499,6 +2509,31 @@ checkPEAccess();
   <div class="ad-foot" id="adFoot"></div>
 </div>
 
+<div class="audit-ov" id="auditHelpOv">
+  <div class="audit-modal" role="dialog" aria-modal="true">
+    <div class="am-head">
+      <div><div class="am-title">🔍 Audit Mode is on</div><div class="am-loc">Help us confirm every number on this dashboard is correct</div></div>
+      <button class="am-close" type="button" onclick="AUDIT.closeHelp()">✕</button>
+    </div>
+    <div class="am-body">
+      <p class="audit-help-intro">You're reviewing as an auditor. Here's everything you can do:</p>
+      <ul class="audit-help-list">
+        <li><span class="hi">⚑</span><span><b>Flag a card or metric</b> — hover any card or KPI and click its red <b>⚑ Flag</b> button.</span></li>
+        <li><span class="hi">✍️</span><span><b>Flag specific text</b> — highlight any text on the page, then click <b>⚑ Flag selected text</b> in the bottom bar.</span></li>
+        <li><span class="hi">🏷️</span><span><b>Categorize it</b> — Wrong number, Missing data, Needs context, Looks correct, or Other.</span></li>
+        <li><span class="hi">💬</span><span><b>Explain</b> — add a note and, if you know it, the <b>suggested correct value</b>.</span></li>
+        <li><span class="hi">🧑</span><span><b>Add your name</b> once (bottom-left of the bar) so we know who flagged what — it's remembered next time.</span></li>
+        <li><span class="hi">📤</span><span><b>Submit</b> — open <b>Feedback</b> in the bottom bar, review your flags, then hit <b>Submit all</b>. They go straight to the team's tracker.</span></li>
+      </ul>
+      <div class="audit-help-tip">Your flags are saved in your browser until you submit, so you won't lose them. You can also Export or Copy them anytime from the Feedback panel.</div>
+      <label class="audit-help-dsa"><input type="checkbox" id="auditHelpDsa"> Don't show this again</label>
+    </div>
+    <div class="am-foot">
+      <button class="am-save" type="button" onclick="AUDIT.closeHelp()">Got it — start reviewing</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ═══════════════════════════════════════════════════════════════
    AUDIT MODE — self-contained. Works on Netlify (plain browser)
@@ -2514,7 +2549,8 @@ checkPEAccess();
     FETCH:   'mcp__c61042c2-2fb3-4e2e-888c-dce52a6a8c86__fetch',
     TAB: 'Audit Log',
     LSK: 'gustoAuditFlags_v1',
-    LSN: 'gustoAuditReviewer_v1'
+    LSN: 'gustoAuditReviewer_v1',
+    LSH: 'gustoAuditHelpDismiss_v1'
   };
   const CATS = [
     {k:'wrong',   label:'🔴 Wrong number'},
@@ -2534,6 +2570,8 @@ checkPEAccess();
   function persist(){ try{ localStorage.setItem(CFG.LSK, JSON.stringify(flags)); }catch(e){} }
   function getName(){ try{ return localStorage.getItem(CFG.LSN)||''; }catch(e){ return ''; } }
   function setName(v){ try{ localStorage.setItem(CFG.LSN, v||''); }catch(e){} }
+  function getLS(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+  function setLS(k,v){ try{ localStorage.setItem(k, v||''); }catch(e){} }
 
   function toast(msg, err){
     if (typeof window.showToast === 'function'){ window.showToast(msg, !!err); return; }
@@ -2798,24 +2836,27 @@ checkPEAccess();
       if(!mo) mo=new MutationObserver(()=>{ if(on){ clearTimeout(moT); moT=setTimeout(mark,120);} });
       mark(); refreshBar();
       const nm=$('abName'); if(nm){ nm.value=getName(); }
-      toast('Audit Mode on — click ⚑ Flag on any card, or highlight text');
-      if(!getName() && nm) setTimeout(()=>nm.focus(),200);
+      if(getLS(CFG.LSH)==='1'){ toast('Audit Mode on — click ⚑ Flag on any card, or highlight text'); if(!getName() && nm) setTimeout(()=>nm.focus(),200); }
+      else openHelp();
     } else {
       if(mo) mo.disconnect();
       unmark(); closeModal(); closeDrawer();
     }
   }
 
+  /* ---------- help / instructions popup ---------- */
+  function openHelp(){ const c=$('auditHelpDsa'); if(c) c.checked=(getLS(CFG.LSH)==='1'); const ov=$('auditHelpOv'); if(ov) ov.classList.add('show'); }
+  function closeHelp(){ const c=$('auditHelpDsa'); if(c) setLS(CFG.LSH, c.checked?'1':''); const ov=$('auditHelpOv'); if(ov) ov.classList.remove('show'); }
   /* ---------- init ---------- */
   function init(){
     load();
     const nm=$('abName'); if(nm){ nm.value=getName(); nm.addEventListener('input',()=>setName(nm.value.trim())); }
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ if($('auditOv').classList.contains('show')) closeModal(); else if($('auditDrawer').classList.contains('open')) closeDrawer(); } });
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ if($('auditHelpOv').classList.contains('show')) closeHelp(); else if($('auditOv').classList.contains('show')) closeModal(); else if($('auditDrawer').classList.contains('open')) closeDrawer(); } });
     refreshBar();
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
 
-  window.AUDIT={ toggle, openDrawer, closeDrawer, closeModal, save, remove, submitAll, exportJson, copySummary, loadFromSheet,
+  window.AUDIT={ toggle, openDrawer, closeDrawer, closeModal, openHelp, closeHelp, save, remove, submitAll, exportJson, copySummary, loadFromSheet,
     flagSelection:()=>{ if(!sel){ toast('Select some text first', true); return; } openModal({highlighted:sel}); } };
 })();
 </script>
